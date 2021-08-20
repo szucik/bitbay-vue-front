@@ -1,4 +1,4 @@
-# bitbay-vue
+# Bitaby orderbook list - vue
 
 ## Project setup
 ```
