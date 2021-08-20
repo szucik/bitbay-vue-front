@@ -1,4 +1,4 @@
-# Bitaby orderbook list - vue
+# Bitbay orderbook list - vue
 
 ## Project setup
 ```
