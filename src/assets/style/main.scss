@@ -1,0 +1,148 @@
+@import './veriables.scss';
+  html{
+    font-size: 10px;
+
+  }
+  body {
+    font-family: System, monospace;
+    background: $border-color2;
+    font-size: 1.6rem;
+  }
+  ul {
+    padding-left: 0;
+    list-style: none;
+  }
+  .content {
+    min-height: calc(100vh - 84px);
+  }
+  .logo {
+    text-align: center;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 15px;
+    
+    img {
+      @extend %pixel-art;
+      border-radius: 50%;
+      max-width: 60px;
+    }
+  }
+
+  .container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 15px 15px 0 15px;
+  }
+
+  h2 {
+    font-size: 18px;
+    padding: 8px 0;
+    text-align: center;
+    color: $border-color2;
+  }
+
+  .col {
+    margin: 15px 0;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  .pixel-art {
+    @extend %pixel-art;
+  }
+
+  .header {
+    @extend %container-flex;
+    @extend %pixel-art;
+    padding: 15px;
+    text-align: center;
+    background: #fcfeff;
+    margin-bottom: 55px;
+
+
+    h1 {
+      margin: 0;
+      line-height:2rem;
+      font-size: 2rem;
+
+      span {
+        padding-right: 15px;
+        border-right: 2px solid $base-color;
+      }
+    }
+  }
+  
+  footer {
+    margin-top: 80px;
+    box-sizing: border-box;
+    background: #243350;
+    font-size: 12px;
+    text-align: center;
+    padding: 10px;
+    color: #758eb7;
+    box-shadow: (-$box-height) 0 0 0 $box-shadow, $box-height 0 0 0 $box-shadow,
+      0 (-$box-height) 0 0 $box-shadow, 0 $box-height 0 0 $box-shadow;
+      @media (min-width: 992px) {
+        margin-top: 0;
+      }
+
+    h3 {
+      font-size: inherit;
+      margin: 0;
+      padding-bottom: 5px;
+    }
+  }
+
+
+  .select {
+    text-align: center;
+    margin: 30px 0;
+    background: #2f353e;
+    color: #57bff4;
+    @extend %pixel-art;
+    @media (min-width: 992px) {
+      margin-top: 80px;
+    }
+    span {
+      margin-right: 15px;
+    }
+  }
+  .order-wrapper{
+    @media (min-width: 768px) {
+      display: flex;
+      justify-content: space-between;
+    }
+    .order-book {
+      @extend %pixel-art;
+      margin: 30px 0;
+      padding: 25px;
+      background: #2f353e;
+      @media (min-width: 768px) {
+        display: flex;
+        padding: 25px 15px;
+        margin-top: 0;
+        width: calc(50% - 15px);
+      }
+      li {
+        margin: 10px 0;
+        opacity: 70%;
+        &:first-of-type {
+          padding-bottom: 2px;
+          margin-bottom: 15px;
+          opacity: 100%;
+         font-weight: 600;
+        }
+      }
+      &.sell-box {
+        li {
+          color: $red;
+        }
+      }
+  
+      &.buy-box {
+        li {
+          color: $green;
+        }
+      }
+    }
+  }
