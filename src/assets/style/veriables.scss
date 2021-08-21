@@ -1,0 +1,18 @@
+$base-color: #27426b;
+$box-shadow: #0e182c;
+$box-height: 7px;
+$double-border: #0e182c;
+$border-color2: #57bff4;
+$green: #64d0b4;
+$red: #ea5043;
+
+%pixel-art {
+    box-shadow: (-$box-height) 0 0 0 $box-shadow, $box-height 0 0 0 $box-shadow,
+      0 (-$box-height) 0 0 $box-shadow, 0 $box-height 0 0 $box-shadow;
+  }
+
+%container-flex{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
