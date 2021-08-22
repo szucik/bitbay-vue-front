@@ -9,28 +9,30 @@
           <h1><span>BitBay</span> <small>Orders book</small></h1>
         </header>
         <div class="col select">
-          <span>Select currency pair: </span>
-          <select v-model="selectedCurrency.currency" @change="getOrderbook">
-            <option
-              v-for="option in market"
-              v-bind:value="option"
-              :key="option"
+          <span>Select currency pairs: </span>
+          <div class="select-box">
+            <select v-model="selectedCurrency.currency" @change="getOrderbook">
+              <option
+                v-for="option in market"
+                v-bind:value="option"
+                :key="option"
+              >
+                {{ option }}
+              </option>
+            </select>
+            <select
+              v-model="selectedCurrency.currencyPair"
+              @change="getOrderbook"
             >
-              {{ option }}
-            </option>
-          </select>
-          <select
-            v-model="selectedCurrency.currencyPair"
-            @change="getOrderbook"
-          >
-            <option
-              v-for="option in currency"
-              v-bind:value="option"
-              :key="option"
-            >
-              {{ option }}
-            </option>
-          </select>
+              <option
+                v-for="option in currency"
+                v-bind:value="option"
+                :key="option"
+              >
+                {{ option }}
+              </option>
+            </select>
+          </div>
         </div>
         <div class="order-wrapper">
           <div class="col order-book buy-box">
