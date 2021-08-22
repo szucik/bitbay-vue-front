@@ -9,14 +9,26 @@
           <h1><span>BitBay</span> <small>Orders book</small></h1>
         </header>
         <div class="col select">
-          <span>Select currency pair: {{ selectedCurrency }}</span>
-          <select v-model="selectedCurrency">
+          <span>Select currency pair: </span>
+          <select v-model="selectedCurrency.currency" @change="getOrderbook">
             <option
-              v-for="option in options"
-              v-bind:value="option.value"
-              :key="option.value"
+              v-for="option in market"
+              v-bind:value="option"
+              :key="option"
             >
-              {{ option.text }}
+              {{ option }}
+            </option>
+          </select>
+          <select
+            v-model="selectedCurrency.currencyPair"
+            @change="getOrderbook"
+          >
+            <option
+              v-for="option in currency"
+              v-bind:value="option"
+              :key="option"
+            >
+              {{ option }}
             </option>
           </select>
         </div>
@@ -25,14 +37,14 @@
             <OrdersList
               :data="this.buyOrders"
               label="Buy orders"
-              :currency="selectedCurrency"
+              :currency="selectedCurrency.currencyPair"
             />
           </div>
           <div class="col order-book sell-box">
             <OrdersList
               :data="this.sellOrders"
               label="Sell orders"
-              :currency="selectedCurrency"
+              :currency="selectedCurrency.currencyPair"
             />
           </div>
         </div>
@@ -59,18 +71,29 @@ import { Buy, Sell } from './model/orderbook'
 })
 export default class App extends Vue {
   apiClient: ApiClient = ApiClient.getInstance()
-  buyOrders: Array<Buy> = []
-  sellOrders: Array<Sell> = []
-  options = [
-    { text: 'BTC-PLN', value: 'PLN' },
-    { text: 'BTC-USD', value: 'USD' }
-  ]
-  selectedCurrency = 'USD'
+  buyOrders: Buy[] = []
+  sellOrders: Sell[] = []
+  market: string[] = ['BTC', 'ETH', 'XRP']
+  currency: string[] = ['PLN', 'USD', 'USDT']
+  selectedCurrency = {
+    currency: 'BTC',
+    currencyPair: 'PLN'
+  }
+
+  setCurrencyPair(): string {
+    return this.selectedCurrency.currency.concat(
+      '-',
+      this.selectedCurrency.currencyPair.toUpperCase()
+    )
+  }
 
   getOrderbook(): void {
-    const pair = 'BTC-PLN'
-    timer(0, 1000)
-      .pipe(switchMap(() => this.apiClient.getOrderbookLimkted(pair, 10)))
+    const currencyPair = this.setCurrencyPair()
+
+    timer(0, 2000)
+      .pipe(
+        switchMap(() => this.apiClient.getOrderbookLimkted(currencyPair, 10))
+      )
       .subscribe(
         (response) => {
           this.buyOrders = response.data.buy
