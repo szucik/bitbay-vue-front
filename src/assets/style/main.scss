@@ -109,6 +109,10 @@
     background: #2f353e;
     border: 1px solid #0e182c;
     color: #ffb400;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     margin: 30px 0;
 
