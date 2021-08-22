@@ -35,7 +35,7 @@
         <div class="order-wrapper">
           <div class="col order-book buy-box">
             <OrdersList
-              :data="this.buyOrders"
+              :data="buyOrders"
               label="Buy orders"
               :currency="selectedCurrency.currencyPair"
             />
@@ -64,6 +64,7 @@ import { timer } from 'rxjs'
 import { switchMap } from 'rxjs/operators'
 import { ApiClient } from '../src/scripts/api-client'
 import { Buy, Sell } from './model/orderbook'
+
 @Component({
   components: {
     OrdersList
@@ -80,28 +81,14 @@ export default class App extends Vue {
     currencyPair: 'PLN'
   }
 
-  _currencyPairs = 'PLN-BTC'
-  set currencyPairs(value: string) {
-    this._currencyPairs = value
-  }
-
-  get currencyPairs(): string {
-    return this._currencyPairs
-  }
-
-  setCurrencyPair(): string {
-    return this.selectedCurrency.currency.concat(
-      '-',
-      this.selectedCurrency.currencyPair.toUpperCase()
-    )
-  }
-
   getOrderbook(): void {
-    this.currencyPairs = this.setCurrencyPair()
-    timer(0, 5000)
+    timer(0, 2000)
       .pipe(
         switchMap(() =>
-          this.apiClient.getOrderbookLimkted(this.currencyPairs, 10)
+          this.apiClient.getOrderbookLimkted(
+            `${this.selectedCurrency.currency}-${this.selectedCurrency.currencyPair}`.toUpperCase(),
+            10
+          )
         )
       )
       .subscribe(
