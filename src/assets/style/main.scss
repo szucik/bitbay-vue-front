@@ -5,10 +5,10 @@
 
   body {
     font-family: System, monospace;
+    text-transform: uppercase;
     background: $border-color2;
     font-size: 1.6rem;
   }
-
   .content {
     min-height: calc(100vh - 84px);
   }
@@ -22,7 +22,11 @@
     img {
       @extend %pixel-art;
       border-radius: 50%;
-      max-width: 60px;
+      max-width: 50px;
+
+      @media (min-width: 576px) {
+        max-width: 60px;
+      }
     }
   }
 
@@ -61,7 +65,10 @@
       margin: 0;
       line-height:2rem;
       font-size: 2rem;
-      
+      flex-grow: 1;
+      @media (min-width: 576px) {
+        flex-grow: 0;
+      }
       @media (min-width: 992px) {
         font-size: 2.5rem;
       }
@@ -100,7 +107,8 @@
   .select {
     @extend %pixel-art;
     background: #2f353e;
-    color: #57bff4;
+    border: 1px solid #0e182c;
+    color: #ffb400;
     text-align: center;
     margin: 30px 0;
 
@@ -110,6 +118,18 @@
 
     span {
       margin-right: 15px;
+    }
+
+    select {
+      padding: 5px 15px;
+      border: 0;
+      background: #3e8ebe;
+      color: #fcfeff;
+      margin: 8px;
+
+      &:focus-visible {
+        outline: 0;
+      }
     }
   }
 
@@ -165,7 +185,6 @@
   
     > div {
       display: flex;
-      flex-wrap: wrap;
       flex-flow: row wrap;
       font-size: 1.4rem;
   
