@@ -41,6 +41,11 @@ export default class HelloWorld extends Vue {
   @Prop() private label!: string
   @Prop() private currency!: string
 }
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+// mounted() {
+
+// }
 </script>
 
 <style scoped lang="scss"></style>
