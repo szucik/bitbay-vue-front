@@ -29,7 +29,7 @@ export class ApiClient {
     ): AxiosObservable<Orderbook> {
         return from(
             this.client.get(
-                `${envirenoment.endpoints.orderbookLimited}/${currencyPair}/${limit}`
+                `${envirenoment.endpoints.orderbookLimited}${currencyPair}/${limit}`
             )
         )
     }
