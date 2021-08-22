@@ -1,20 +1,18 @@
 @import './veriables.scss';
   html{
     font-size: 10px;
-
   }
+
   body {
     font-family: System, monospace;
     background: $border-color2;
     font-size: 1.6rem;
   }
-  ul {
-    padding-left: 0;
-    list-style: none;
-  }
+
   .content {
     min-height: calc(100vh - 84px);
   }
+
   .logo {
     text-align: center;
     border-radius: 50%;
@@ -59,11 +57,14 @@
     background: #fcfeff;
     margin-bottom: 55px;
 
-
     h1 {
       margin: 0;
       line-height:2rem;
       font-size: 2rem;
+      
+      @media (min-width: 992px) {
+        font-size: 2.5rem;
+      }
 
       span {
         padding-right: 15px;
@@ -73,18 +74,20 @@
   }
   
   footer {
-    margin-top: 80px;
-    box-sizing: border-box;
     background: #243350;
+    box-sizing: border-box;
+    color: #758eb7;
     font-size: 12px;
     text-align: center;
+    margin-top: 80px;
     padding: 10px;
-    color: #758eb7;
+    
     box-shadow: (-$box-height) 0 0 0 $box-shadow, $box-height 0 0 0 $box-shadow,
       0 (-$box-height) 0 0 $box-shadow, 0 $box-height 0 0 $box-shadow;
-      @media (min-width: 992px) {
-        margin-top: 0;
-      }
+
+    @media (min-width: 992px) {
+      margin-top: 0;
+    }
 
     h3 {
       font-size: inherit;
@@ -95,54 +98,128 @@
 
 
   .select {
-    text-align: center;
-    margin: 30px 0;
+    @extend %pixel-art;
     background: #2f353e;
     color: #57bff4;
-    @extend %pixel-art;
+    text-align: center;
+    margin: 30px 0;
+
     @media (min-width: 992px) {
       margin-top: 80px;
     }
+
     span {
       margin-right: 15px;
     }
   }
+
   .order-wrapper{
     @media (min-width: 768px) {
       display: flex;
       justify-content: space-between;
     }
+
     .order-book {
       @extend %pixel-art;
+      background: #2f353e;
       margin: 30px 0;
       padding: 25px;
-      background: #2f353e;
-      @media (min-width: 768px) {
-        display: flex;
-        padding: 25px 15px;
-        margin-top: 0;
-        width: calc(50% - 15px);
-      }
-      li {
-        margin: 10px 0;
-        opacity: 70%;
-        &:first-of-type {
-          padding-bottom: 2px;
-          margin-bottom: 15px;
-          opacity: 100%;
-         font-weight: 600;
-        }
-      }
+      
       &.sell-box {
         li {
-          color: $red;
+          color:rgb(234 80 67 / 70%);
+
+          &:first-of-type {
+            color:rgb(234 80 67 / 100%);
+          }
         }
       }
   
       &.buy-box {
         li {
-          color: $green;
+          color: rgb(100 208 180 / 70%);
+          
+          &:first-of-type {
+            color:rgb(100 208 180 / 100%);
+          }
         }
+      }
+
+      @media (min-width: 768px) {
+        display: flex;
+        margin-top: 0;
+        padding: 25px 15px;
+        width: calc(50% - 15px);
       }
     }
   }
+
+  .fieldset {
+    border: 1px solid #fcfeff;
+    position: relative;
+  
+    @media (min-width: 768px) {
+      flex-grow: 1;
+      padding: 30px 0;
+    }
+  
+    > div {
+      display: flex;
+      flex-wrap: wrap;
+      flex-flow: row wrap;
+      font-size: 1.4rem;
+  
+      > div {
+        flex-grow: 1;
+        text-align: left;
+        padding: 0 15px;
+        margin-bottom: 15px;
+  
+        @media (min-width: 768px) {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    ul {
+      padding-left: 0;
+      list-style: none;
+    }
+  
+    li {
+      margin: 10px 0;
+  
+      &:first-of-type {
+        padding-bottom: 2px;
+        margin-bottom: 15px;
+        
+       font-weight: 600;
+      }
+    }
+    h2 {
+      background: #2f353e;
+  
+      @media (min-width: 768px) {
+        position: absolute;
+        left: 50%;
+        top: -13px;
+        padding: 1px 32px;
+        margin: 0 0 0 -80px;
+      }
+    }
+  
+    .label {
+      border-bottom: 1px solid #49515d;
+      color: #90a4ae;
+      display: block;
+      padding-bottom: 5px;
+      text-transform: uppercase;
+      width: 100%;
+    }
+  
+    p {
+      color: white;
+      font-size: 2em;
+      text-align: center;
+    }
+  } 
