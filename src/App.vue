@@ -80,6 +80,15 @@ export default class App extends Vue {
     currencyPair: 'PLN'
   }
 
+  _currencyPairs = 'PLN-BTC'
+  set currencyPairs(value: string) {
+    this._currencyPairs = value
+  }
+
+  get currencyPairs(): string {
+    return this._currencyPairs
+  }
+
   setCurrencyPair(): string {
     return this.selectedCurrency.currency.concat(
       '-',
@@ -88,11 +97,12 @@ export default class App extends Vue {
   }
 
   getOrderbook(): void {
-    const currencyPair = this.setCurrencyPair()
-
-    timer(0, 2000)
+    this.currencyPairs = this.setCurrencyPair()
+    timer(0, 5000)
       .pipe(
-        switchMap(() => this.apiClient.getOrderbookLimkted(currencyPair, 10))
+        switchMap(() =>
+          this.apiClient.getOrderbookLimkted(this.currencyPairs, 10)
+        )
       )
       .subscribe(
         (response) => {
@@ -104,7 +114,7 @@ export default class App extends Vue {
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  mounted() {
+  created() {
     this.getOrderbook()
   }
 }

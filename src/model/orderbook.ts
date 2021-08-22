@@ -1,12 +1,10 @@
 export interface Envirenoment {
-    baseURL: string,
+    baseURL: string
     endpoints: {
         readonly orderbook: string
         readonly orderbookLimited: string
     }
 }
-
-
 export interface Sell {
     ra: string
     ca: string
@@ -14,7 +12,6 @@ export interface Sell {
     pa: string
     co: number
 }
-
 export interface Buy {
     ra: string
     ca: string
@@ -22,7 +19,6 @@ export interface Buy {
     pa: string
     co: number
 }
-
 export interface Orderbook {
     status: string
     sell: Sell[]
