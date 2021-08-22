@@ -9,8 +9,8 @@
           <h1><span>BitBay</span> <small>Orders book</small></h1>
         </header>
         <div class="col select">
-          <span>Select currency pair: {{ selected }}</span>
-          <select v-model="selected">
+          <span>Select currency pair: {{ selectedCurrency }}</span>
+          <select v-model="selectedCurrency">
             <option
               v-for="option in options"
               v-bind:value="option.value"
@@ -68,7 +68,7 @@ export default class App extends Vue {
   selectedCurrency = 'USD'
 
   getOrderbook(): void {
-    const pair = 'BTC-USD'
+    const pair = 'BTC-PLN'
     timer(0, 1000)
       .pipe(switchMap(() => this.apiClient.getOrderbookLimkted(pair, 10)))
       .subscribe(
