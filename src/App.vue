@@ -93,11 +93,7 @@ export default class App extends Vue {
     currencyPair: 'PLN'
   }
   ticker: Ticker = {} as Ticker
-  currentSpread = 0
-
-  setCurrentSpread(): number {
-    return parseInt(this.ticker.lowestAsk) - parseInt(this.ticker.highestBid)
-  }
+  currentSpread = ''
 
   getOrderbook(): void {
     timer(0, 2000)
@@ -125,6 +121,12 @@ export default class App extends Vue {
           console.log(error)
         }
       )
+  }
+
+  setCurrentSpread(): string {
+    const spread =
+      parseFloat(this.ticker.lowestAsk) - parseFloat(this.ticker.highestBid)
+    return spread.toFixed(2)
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

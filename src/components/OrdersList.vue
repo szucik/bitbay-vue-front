@@ -27,7 +27,7 @@
         </ul>
       </div>
       <div>
-        <span class="label">Co {{ currency }}</span>
+        <span class="label">ON</span>
         <ul>
           <li v-for="(item, index) in data" :key="index">
             {{ item.co }}
@@ -49,11 +49,6 @@ export default class HelloWorld extends Vue {
   @Prop() private label!: string
   @Prop() private currency!: string
 }
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-// mounted() {
-
-// }
 </script>
 
 <style scoped lang="scss"></style>
