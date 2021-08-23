@@ -26,6 +26,14 @@
           </li>
         </ul>
       </div>
+      <div>
+        <span class="label">Co {{ currency }}</span>
+        <ul>
+          <li v-for="(item, index) in data" :key="index">
+            {{ item.co }}
+          </li>
+        </ul>
+      </div>
     </div>
     <p v-else>No orders.</p>
   </div>

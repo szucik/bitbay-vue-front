@@ -9,29 +9,37 @@
           <h1><span>BitBay</span> <small>Orders book</small></h1>
         </header>
         <div class="col select">
-          <span>Select currency pairs: </span>
-          <div class="select-box">
-            <select v-model="selectedCurrency.currency" @change="getOrderbook">
-              <option
-                v-for="option in market"
-                v-bind:value="option"
-                :key="option"
+          <div class="currency-pairs">
+            <span>Select currency pairs: </span>
+            <div class="select-box">
+              <select
+                v-model="selectedCurrency.currency"
+                @change="getOrderbook"
               >
-                {{ option }}
-              </option>
-            </select>
-            <select
-              v-model="selectedCurrency.currencyPair"
-              @change="getOrderbook"
-            >
-              <option
-                v-for="option in currency"
-                v-bind:value="option"
-                :key="option"
+                <option
+                  v-for="option in market"
+                  v-bind:value="option"
+                  :key="option"
+                >
+                  {{ option }}
+                </option>
+              </select>
+              <select
+                v-model="selectedCurrency.currencyPair"
+                @change="getOrderbook"
               >
-                {{ option }}
-              </option>
-            </select>
+                <option
+                  v-for="option in currency"
+                  v-bind:value="option"
+                  :key="option"
+                >
+                  {{ option }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="spread">
+            <span>Current spread: {{ currentSpread }}</span>
           </div>
         </div>
         <div class="order-wrapper">
@@ -62,11 +70,13 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import OrdersList from './components/OrdersList.vue'
-import { timer } from 'rxjs'
-import { switchMap } from 'rxjs/operators'
+import { timer, forkJoin } from 'rxjs'
+import { concatMap } from 'rxjs/operators'
 import { ApiClient } from '../src/scripts/api-client'
 import { Buy, Sell } from './model/orderbook'
+import { AxiosError } from 'axios'
 
+import { Ticker } from './model/ticker'
 @Component({
   components: {
     OrdersList
@@ -82,23 +92,38 @@ export default class App extends Vue {
     currency: 'BTC',
     currencyPair: 'PLN'
   }
+  ticker: Ticker = {} as Ticker
+  currentSpread = 0
+
+  setCurrentSpread(): number {
+    return parseInt(this.ticker.lowestAsk) - parseInt(this.ticker.highestBid)
+  }
 
   getOrderbook(): void {
     timer(0, 2000)
       .pipe(
-        switchMap(() =>
-          this.apiClient.getOrderbookLimkted(
-            `${this.selectedCurrency.currency}-${this.selectedCurrency.currencyPair}`.toUpperCase(),
-            10
-          )
+        concatMap(() =>
+          forkJoin({
+            orderbook: this.apiClient.getOrderbookLimkted(
+              `${this.selectedCurrency.currency}-${this.selectedCurrency.currencyPair}`.toUpperCase(),
+              10
+            ),
+            ticker: this.apiClient.getTicker(
+              `${this.selectedCurrency.currency}-${this.selectedCurrency.currencyPair}`.toUpperCase()
+            )
+          })
         )
       )
       .subscribe(
         (response) => {
-          this.buyOrders = response.data.buy
-          this.sellOrders = response.data.sell
+          this.buyOrders = response.orderbook.data.buy
+          this.sellOrders = response.orderbook.data.sell
+          this.ticker = response.ticker.data.ticker
+          this.currentSpread = this.setCurrentSpread()
         },
-        (error) => console.log(error)
+        (error: AxiosError) => {
+          console.log(error)
+        }
       )
   }
 

@@ -66,9 +66,11 @@
       line-height:2rem;
       font-size: 2rem;
       flex-grow: 1;
+
       @media (min-width: 576px) {
         flex-grow: 0;
       }
+
       @media (min-width: 992px) {
         font-size: 2.5rem;
       }
@@ -106,22 +108,29 @@
 
   .select {
     @extend %pixel-art;
+    @extend %flex-center ;
     background: #2f353e;
     border: 1px solid #0e182c;
     color: #ffb400;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: center;
+    flex-wrap: wrap;
     text-align: center;
     margin: 30px 0;
-
+    flex-direction: column;
     @media (min-width: 992px) {
       margin-top: 80px;
     }
 
     span {
       margin-right: 15px;
+    }
+
+    .currency-pairs{
+      @extend %flex-center ;
+      flex-grow: 1;
+      flex-direction: column;
+      @media (min-width: 576px) {
+        flex-direction: row;
+      }
     }
 
     select {
@@ -135,6 +144,11 @@
         outline: 0;
       }
     }
+    .spread {
+      font-size: 12px;
+      color: #fcfeff;
+      padding: 3px;
+    }
   }
 
   .order-wrapper{
@@ -147,8 +161,8 @@
       @extend %pixel-art;
       background: #2f353e;
       margin: 30px 0;
-      padding: 25px;
       
+
       &.sell-box {
         li {
           color:rgb(234 80 67 / 70%);
@@ -168,7 +182,7 @@
           }
         }
       }
-
+    
       @media (min-width: 768px) {
         display: flex;
         margin-top: 0;
@@ -190,12 +204,14 @@
     > div {
       display: flex;
       flex-flow: row wrap;
-      font-size: 1.4rem;
-  
+      font-size: 1rem;
+      @media (min-width: 576px) {
+        font-size: 1.2rem;
+      }
       > div {
         flex-grow: 1;
         text-align: left;
-        padding: 0 15px;
+        padding: 0 10px;
         margin-bottom: 15px;
   
         @media (min-width: 768px) {
@@ -245,4 +261,5 @@
       font-size: 2em;
       text-align: center;
     }
+
   } 
