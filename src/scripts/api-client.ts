@@ -1,5 +1,6 @@
 import { envirenoment } from '@/envirenoment/envirenoment'
 import { Orderbook } from '@/model/orderbook'
+import { Ticker, TickerRoot } from '@/model/ticker'
 import Axios, { AxiosObservable } from 'axios-observable'
 import { from } from 'rxjs'
 
@@ -31,6 +32,12 @@ export class ApiClient {
             this.client.get(
                 `${envirenoment.endpoints.orderbookLimited}${currencyPair}/${limit}`
             )
+        )
+    }
+
+    getTicker(currencyPair: string): AxiosObservable<TickerRoot> {
+        return from(
+            this.client.get(`${envirenoment.endpoints.ticker}${currencyPair}`)
         )
     }
 }

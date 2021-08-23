@@ -3,5 +3,6 @@ export interface Envirenoment {
     endpoints: {
         readonly orderbook: string
         readonly orderbookLimited: string
+        readonly ticker: string
     }
 }

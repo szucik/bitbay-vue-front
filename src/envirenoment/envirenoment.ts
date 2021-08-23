@@ -4,7 +4,8 @@ export const envirenoment: Envirenoment = {
     baseURL: 'https://api.bitbay.net/',
     endpoints: {
         orderbook: '/rest/trading/orderbook/',
-        orderbookLimited: '/rest/trading/orderbook-limited/'
+        orderbookLimited: '/rest/trading/orderbook-limited/',
+        ticker: '/rest/trading/ticker/'
     }
 
 }
